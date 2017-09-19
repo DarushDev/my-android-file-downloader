@@ -17,7 +17,9 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class MainActivity extends AppCompatActivity {
-    private static String file_url = "http://androstock.com/wp-content/uploads/2015/10/MaterialSlidingTab.zip";
+
+    String TAG = "mytag";
+    private static String file_url = "http://ipv4.download.thinkbroadband.com/5MB.zip";
     public ArcProgress arc_progress;
 
     @Override
@@ -42,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 URLConnection conection = url.openConnection();
                 conection.connect();
                 // getting file length
-                int lenghtOfFile = conection.getContentLength();
+                int lengthOfFile = conection.getContentLength();
+                //Log.d(TAG, "lengthOfFile: " + lengthOfFile);
                 // input stream to read file - with 8k buffer
                 InputStream input = new BufferedInputStream(url.openStream(), 8192);
                 // Output stream to write file
                 final String fileName = file_url.substring(file_url.lastIndexOf('/') + 1);
+                //Log.d(TAG, "fileName: " + fileName);
                 OutputStream output = new FileOutputStream(Environment.getExternalStorageDirectory() + "/" + fileName);
                 byte data[] = new byte[1024];
                 long total = 0;
@@ -54,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
                     total += count;
                     // publishing the progress....
                     // After this onProgressUpdate will be called
-                    publishProgress("" + (int) ((total * 100) / lenghtOfFile));
+                    publishProgress("" + (int) ((total * 100) / lengthOfFile));
                     // writing data to file
                     output.write(data, 0, count);
                 }
@@ -65,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
                 output.close();
                 input.close();
             } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
+                Log.e(TAG + " Error: ", e.getMessage());
             }
 
             return null;
@@ -73,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
         protected void onProgressUpdate(String... progress) {
             // setting progress percentage
-            Log.d("PROG", progress[0]);
+            //Log.d(TAG + " PROG", progress[0]);
             arc_progress.setProgress(Integer.parseInt(progress[0]));
 
         }

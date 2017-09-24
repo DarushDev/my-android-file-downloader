@@ -3,7 +3,7 @@ Simple file downloader using [CircleProgress](https://github.com/lzyzsd/CirclePr
 
 Note: Provide storage permission to be able to download the file
 
-Image to be added soon...
+![Image](./app/src/main/assets/screenshot1.gif)
 
 Libraries used:
 - [CircleProgress](https://github.com/lzyzsd/CircleProgress)
